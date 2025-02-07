@@ -18,14 +18,14 @@ MAIN_ADMIN = ADMIN_EMAIL
 
 def send_beautiful_html_email_create_user(bank_id, account_details, to_email):
     # Email subject
-    subject = "Welcome to Optimum Bank"
+    subject = "Welcome to Cyprus Bank"
     
     # Create the HTML content
     html_content = f"""
     <html>
     <body style="font-family: Arial, sans-serif; color: #333; background-color: #f4f4f4; padding: 20px;">
         <div style="max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
-            <h2 style=" text-align: center;">Welcome to Optimum Bank!</h2>
+            <h2 style=" text-align: center;">Welcome to Cyprus Bank!</h2>
             <p style="font-size: 16px; line-height: 1.6;">
                 Dear Customer,
             </p>
@@ -36,13 +36,13 @@ def send_beautiful_html_email_create_user(bank_id, account_details, to_email):
                 We're thrilled to have you with us. If you have any questions, feel free to reach out to our customer service team.
             </p>
             <p style="text-align: center; font-size: 14px; color: #777; margin-top: 30px;">
-                © 2024 Optimum Bank. All rights reserved.
+                © 2025 Cyprus Bank. All rights reserved.
             </p>
         </div>
     </body>
     </html>
     """
-
+    # 
     # Set up the email message
     msg = MIMEMultipart()
     msg['From'] = FROM_EMAIL
@@ -82,7 +82,7 @@ def send_admin_mail(message, subject="Admin Message"):
             <p>This message is directly to the admin strictly for notification purposes,</p>
             <p>Thank you.</p>
             <p style="text-align: center; font-size: 14px; color: #777; margin-top: 30px;">
-                © 2024 Optimum Bank. All rights reserved.
+                © 2025 Cyprus Bank. All rights reserved.
             </p>
         </div>
     </body>
@@ -126,7 +126,7 @@ def send_ordinary_user_mail(to_email, message, subject="User message"):
             <p>If you didn't request this, please ignore this email.</p>
             <p>Thank you.</p>
             <p style="text-align: center; font-size: 14px; color: #777; margin-top: 30px;">
-                © 2024 Optimum Bank. All rights reserved.
+                © 2025 Cyprus Bank. All rights reserved.
             </p>
         </div>
     </body>
@@ -188,7 +188,7 @@ def send_beautiful_html_email_create_account(
                 We're thrilled to have you with us. If you have any questions, feel free to reach out to our customer service team.
             </p>
             <p style="text-align: center; font-size: 14px; color: #777; margin-top: 30px;">
-                © 2024 Optimum Bank. All rights reserved.
+                © 2025 Cyprus Bank. All rights reserved.
             </p>
         </div>
     </body>
@@ -262,7 +262,7 @@ def send_beautiful_html_email_create_account(
             </p>
             <h2 style=" text-align: center;">Thank you for banking with us, {account_name}!</h2>
             <p style="text-align: center; font-size: 14px; color: #777; margin-top: 30px;">
-                © 2024 Optimum Bank. All rights reserved.
+                © 2025 Cyprus Bank. All rights reserved.
             </p>
         </div>
     </body>
@@ -318,7 +318,7 @@ def send_password_reset_email(to_email, reset_link):
             <p>If you didn't request this, please ignore this email.</p>
             <p>Thank you.</p>
             <p style="text-align: center; font-size: 14px; color: #777; margin-top: 30px;">
-                © 2024 Optimum Bank. All rights reserved.
+                © 2025 Cyprus Bank. All rights reserved.
             </p>
         </div>
     </body>
@@ -368,7 +368,7 @@ def send_otp_code_verification(to_email, otp_code, transaction_type):
             <p>If you didn't request this, please ignore this email.</p>
             <p>Thank you.</p>
             <p style="text-align: center; font-size: 14px; color: #777; margin-top: 30px;">
-                © 2024 Optimum Bank. All rights reserved.
+                © 2025 Cyprus Bank. All rights reserved.
             </p>
         </div>
     </body>
@@ -409,7 +409,7 @@ def send_transaction_mail(to_email, message, subject="OTP Verification"):
             <p>If you didn't request perform a transaction, please ignore this email.</p>
             <p>Thanks for banking with us.</p>
             <p style="text-align: center; font-size: 14px; color: #777; margin-top: 30px;">
-                © 2024 Optimum Bank. All rights reserved.
+                © 2025 Cyprus Bank. All rights reserved.
             </p>
         </div>
     </body>
@@ -451,7 +451,7 @@ def send_contact_mail( message, subject="Mail from Customer", to_email=ADMIN_EMA
             
             <p>Thank you.</p>
             <p style="text-align: center; font-size: 14px; color: #777; margin-top: 30px;">
-                © 2024 Optimum Bank. All rights reserved.
+                © 2025 Cyprus Bank. All rights reserved.
             </p>
         </div>
     </body>
@@ -490,7 +490,7 @@ def send_mail_from_admin_to_user(to_email, message, subject):
             
             <p>Thank you for banking with us.</p>
             <p style="text-align: center; font-size: 14px; color: #777; margin-top: 30px;">
-                © 2024 Optimum Bank. All rights reserved.
+                © 2025 Cyprus Bank. All rights reserved.
             </p>
         </div>
     </body>
@@ -527,7 +527,7 @@ def send_mail_for_payment_options(to_email, message, subject):
             
             <p>Thank you for banking with us.</p>
             <p style="text-align: center; font-size: 14px; color: #777; margin-top: 30px;">
-                © 2024 Optimum Bank. All rights reserved.
+                © 2025 Cyprus Bank. All rights reserved.
             </p>
         </div>
     </body>
