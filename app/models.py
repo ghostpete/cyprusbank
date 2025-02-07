@@ -287,7 +287,7 @@ class Account(models.Model):
     balance = models.DecimalField(max_digits=12, decimal_places=2, default=0.00)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    bank_name = models.CharField(max_length=200, blank=True, null=True, default="Optimum Bank")
+    bank_name = models.CharField(max_length=200, blank=True, null=True, default="Cyprus Bank")
     location = models.CharField(max_length=500, blank=True, null=True, default=change_account_location)
     ach_routing = models.CharField(max_length=9, blank=True, null=True, default=generate_ach_routing)
 
