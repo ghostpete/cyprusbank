@@ -29,7 +29,7 @@
                                     <option value="" disabled selected>Select account</option>
                                     {% for account in user_accounts %}
                                     <option value="{{ account.id }}">{{ account.account_number }} -
-                                        ${{account.balance}} - {{ account.account_type }}</option>
+                                        {{user.preferred_currency}}{{account.balance}} - {{ account.account_type }}</option>
                                     {% endfor %}
                                 </select>
                                 <span class="text-sm">Only activated accounts can be used to apply for loans.</span>
@@ -57,7 +57,7 @@
                                 </label>
                                 <div class="input-group ">
                                     <div class="input-group-prepend">
-                                        <span style="border-radius: 0px !important;" class="input-group-text">$</span>
+                                        <span style="border-radius: 0px !important;" class="input-group-text">{{user.preferred_currency}}</span>
                                     </div>
                                     <input type="number" class="form-control" id="loan_amount" name="loan_amount"
                                         aria-label="Loan Amount (to the nearest dollar)" placeholder="Enter loan amount"
@@ -87,7 +87,7 @@
                                 </label>
                                 <div class="input-group ">
                                     <div class="input-group-prepend">
-                                        <span style="border-radius: 0px !important;" class="input-group-text">$</span>
+                                        <span style="border-radius: 0px !important;" class="input-group-text">{{user.preferred_currency}}</span>
                                     </div>
                                     <input type="number" class="form-control" id="interest" name="interest"
                                         aria-label="Loan Interest Amount (to the nearest dollar)" readonly min="0">
@@ -101,7 +101,7 @@
                                 </label>
                                 <div class="input-group ">
                                     <div class="input-group-prepend">
-                                        <span style="border-radius: 0px !important;" class="input-group-text">$</span>
+                                        <span style="border-radius: 0px !important;" class="input-group-text">{{user.preferred_currency}}</span>
                                     </div>
                                     <input type="number" class="form-control" id="repayment" name="repayment"
                                         aria-label="Loan Repayment Amount (to the nearest dollar)" readonly min="0">

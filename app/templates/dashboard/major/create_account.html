@@ -187,7 +187,7 @@
                         </label>
                         <div class="input-group ">
                             <div class="input-group-prepend">
-                                <span style="border-radius: 0px !important;" class="input-group-text">$</span>
+                                <span style="border-radius: 0px !important;" class="input-group-text">{{user.preferred_currency}}</span>
                             </div>
                             <input type="number" class="form-control" id="annual_income" name="annual_income"
                                 aria-label="Amount (to the nearest dollar)" required>
@@ -356,7 +356,7 @@
                     <h6 class="fw-bold text-primary h3">${account.account_type} ACCOUNT</h6>
                     <p>${account.details || 'No specific details available.'}</p>
                     <p class="fw-bold h2">
-                        Deposit Amount: <span class="h2">$${account.amount_to_deposit || 'N/A'}</span>
+                        Deposit Amount: <span class="h2">{{user.preferred_currency}}${account.amount_to_deposit || 'N/A'}</span>
                     </p>
                     
                 `;

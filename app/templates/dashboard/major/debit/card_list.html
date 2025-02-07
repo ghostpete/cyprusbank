@@ -193,7 +193,7 @@
         document.getElementById('modal-card-cvv').textContent = cardCvv;
         document.getElementById('modal-card-expiration').textContent = cardExp;
         // document.getElementById('modal-card-status').textContent = cardStatus;
-        document.getElementById('modal-card-available-balance').textContent = `$${cardAmount}`;
+        document.getElementById('modal-card-available-balance').textContent = `{{user.preferred_currency}}${cardAmount}`;
     });
 </script>
 

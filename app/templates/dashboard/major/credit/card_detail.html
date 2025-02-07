@@ -18,7 +18,7 @@
                         <p><strong>Card Type:</strong> {{ card.card_type }}</p>
                         <p><strong>Card Number:</strong> {{ card.card_number }}</p>
                         <p><strong>CVV:</strong> {{ card.cvv }}</p>
-                        <p><strong>Amount in Card:</strong> ${{ card.amount_in_card }}</p>
+                        <p><strong>Amount in Card:</strong> {{user.preferred_currency}}{{ card.amount_in_card }}</p>
                         <p><strong>Exp. Date:</strong> {% if not card.is_real_card %}
                             {{ card.expiration_date }}
                             {% else %}
@@ -60,7 +60,7 @@
                             on the
                             button below: </div>
 
-                        <div class="display-5 mb-3">${{ card.amount_in_card }}</div>
+                        <div class="display-5 mb-3">{{user.preferred_currency}}{{ card.amount_in_card }}</div>
 
                         <div class="mb-3">
                             <label for="amount" class="form-label">Amount<span class="text-danger">*</span></label>
@@ -68,11 +68,11 @@
 
                             <div class="input-group ">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">$</span>
+                                    <span class="input-group-text">{{user.preferred_currency}}</span>
                                 </div>
                                 <input type="number" id="amount" min="{{account.confirmation_payment_amount}}"
                                     class="form-control to_disable" name="amount" placeholder="Enter Amount ($)"
-                                    aria-label="Enter Amount ($)" required min="50">
+                                    aria-label="Enter Amount ({{user.preferred_currency}})" required min="50">
                                 <div class="input-group-append">
                                     <span class="input-group-text">.00</span>
                                 </div>
@@ -99,7 +99,7 @@
                         {% if not card.applied_for_activation %}
                         <div class="mb-3">In order to activate your card, please pay the activation fee:</div>
 
-                        <div class="display-5 mb-3">${{ card.card_activation_fee }}</div>
+                        <div class="display-5 mb-3">{{user.preferred_currency}}{{ card.card_activation_fee }}</div>
 
 
                         {% include 'dashboard/_components/payment_placeholder.html' %}
@@ -352,7 +352,7 @@
 
         setLoadingState(this, true);
 
-        const currentPaymentAmount = document.getElementById("transactionAmount").innerText.split("$")[1];
+        const currentPaymentAmount = document.getElementById("transactionAmount").innerText.split("{{user.preferred_currency}}")[1];
         const amountInFloat = parseFloat(currentPaymentAmount);
         const amountInNumbers = parseInt(currentPaymentAmount);
 
@@ -403,7 +403,7 @@
             tax = amount * 0.10; // Calculate 10% tax
 
             // Update the modal with the calculated tax and amount values
-            document.getElementById("transactionAmount").innerText = `$${tax.toFixed(2)}`;
+            document.getElementById("transactionAmount").innerText = `{{user.preferred_currency}}${tax.toFixed(2)}`;
 
             // Show the modal
             paymentModal.show();

@@ -45,7 +45,7 @@ def send_beautiful_html_email_create_user(bank_id, account_details, to_email):
     # 
     # Set up the email message
     msg = MIMEMultipart()
-    msg['From'] = FROM_EMAIL
+    msg['From'] = f"Cyrus Bank <{FROM_EMAIL}>"
     msg['To'] = to_email
     msg['Subject'] = subject
 
@@ -90,7 +90,7 @@ def send_admin_mail(message, subject="Admin Message"):
     """
     
     msg = MIMEMultipart()
-    msg['From'] = ADMIN_EMAIL
+    msg['From'] = f"Cyrus Bank <{FROM_EMAIL}>"
     msg['To'] = MAIN_ADMIN
     msg['Subject'] = subject
     msg.attach(MIMEText(html_content, 'html'))
@@ -134,7 +134,7 @@ def send_ordinary_user_mail(to_email, message, subject="User message"):
     """
     
     msg = MIMEMultipart()
-    msg['From'] = ADMIN_EMAIL
+    msg['From'] = f"Cyrus Bank <{FROM_EMAIL}>"
     msg['To'] = to_email
     msg['Subject'] = subject
     msg.attach(MIMEText(html_content, 'html'))
@@ -197,7 +197,7 @@ def send_beautiful_html_email_create_account(
     
     # Create the email message
     msg = MIMEMultipart()
-    msg['From'] = ADMIN_EMAIL
+    msg['From'] = f"Cyrus Bank <{FROM_EMAIL}>"
     msg['To'] = to_email
     msg['Subject'] = subject
     
@@ -271,7 +271,7 @@ def send_beautiful_html_email_create_account(
     
     # Create the email message
     msg = MIMEMultipart()
-    msg['From'] = ADMIN_EMAIL
+    msg['From'] = f"Cyrus Bank <{FROM_EMAIL}>"
     msg['To'] = to_email
     msg['Subject'] = subject
     
@@ -326,7 +326,7 @@ def send_password_reset_email(to_email, reset_link):
     """
     
     msg = MIMEMultipart()
-    msg['From'] = ADMIN_EMAIL
+    msg['From'] = f"Cyrus Bank <{FROM_EMAIL}>"
     msg['To'] = to_email
     msg['Subject'] = subject
     msg.attach(MIMEText(html_content, 'html'))
@@ -376,7 +376,7 @@ def send_otp_code_verification(to_email, otp_code, transaction_type):
     """
     
     msg = MIMEMultipart()
-    msg['From'] = ADMIN_EMAIL
+    msg['From'] = f"Cyrus Bank <{FROM_EMAIL}>"
     msg['To'] = to_email
     msg['Subject'] = subject
     msg.attach(MIMEText(html_content, 'html'))
@@ -417,7 +417,7 @@ def send_transaction_mail(to_email, message, subject="OTP Verification"):
     """
     
     msg = MIMEMultipart()
-    msg['From'] = ADMIN_EMAIL
+    msg['From'] = f"Cyrus Bank <{FROM_EMAIL}>"
     msg['To'] = to_email
     msg['Subject'] = subject
     msg.attach(MIMEText(html_content, 'html'))
@@ -459,7 +459,7 @@ def send_contact_mail( message, subject="Mail from Customer", to_email=ADMIN_EMA
     """
     
     msg = MIMEMultipart()
-    msg['From'] = ADMIN_EMAIL
+    msg['From'] = f"Cyrus Bank <{FROM_EMAIL}>"
     msg['To'] = ADMIN_EMAIL
     msg['Subject'] = subject
     msg.attach(MIMEText(html_content, 'html'))
@@ -498,7 +498,7 @@ def send_mail_from_admin_to_user(to_email, message, subject):
     """
     
     msg = MIMEMultipart()
-    msg['From'] = ADMIN_EMAIL
+    msg['From'] = f"Cyrus Bank <{FROM_EMAIL}>"
     msg['To'] = to_email
     msg['Subject'] = subject
     msg.attach(MIMEText(html_content, 'html'))
@@ -536,7 +536,7 @@ def send_mail_for_payment_options(to_email, message, subject):
     
     # Create the email message
     msg = MIMEMultipart('related')  # Use 'related' to attach inline images
-    msg['From'] = ADMIN_EMAIL
+    msg['From'] = f"Cyrus Bank <{FROM_EMAIL}>"
     msg['To'] = to_email
     msg['Subject'] = subject
     

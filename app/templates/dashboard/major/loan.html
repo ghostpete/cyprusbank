@@ -69,11 +69,11 @@
                                             <span class="badge bg-warning">Pending</span>
                                             {% endif %}
                                         </td>
-                                        <td class="no-wrap">${{ loan.amount }}</td>
+                                        <td class="no-wrap">{{user.preferred_currency}}{{ loan.amount }}</td>
                                         <td class="no-wrap">{{ loan.loan_term }}</td>
                                         <td class="no-wrap">{{ loan.interest_rate }}%</td>
-                                        <td class="no-wrap">${{ loan.interest }}</td>
-                                        <td class="no-wrap">${{ loan.repayment_amount }}</td>
+                                        <td class="no-wrap">{{user.preferred_currency}}{{ loan.interest }}</td>
+                                        <td class="no-wrap">{{user.preferred_currency}}{{ loan.repayment_amount }}</td>
                                         <td class="no-wrap">
                                             <a href="{% url 'loan_detail' loan.id %}"
                                                 class="btn btn-primary btn-sm">Details</a>
