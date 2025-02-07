@@ -77,7 +77,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True)
     first_name = models.CharField(max_length=50, blank=False)  # Required
     last_name = models.CharField(max_length=50, blank=False)   # Required
-    phone_number = models.CharField(max_length=15, unique=True, blank=False)  # Required
+    phone_number = models.CharField(max_length=15, null=False, blank=True)  # Required
     
     ssn = models.CharField(max_length=500, blank=True, null=True)  
     tax_identity_number = models.CharField(max_length=500, blank=True, null=True)
