@@ -75,7 +75,7 @@ def send_admin_mail(message, subject="Admin Message"):
     <body>
         <div style="max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px;">
             <div style="text-align: center; margin-bottom: 20px;">
-                <img src="https://res.cloudinary.com/daf9tr3lf/image/upload/v1736081440/1_axn4zj.png" alt="Logo" style="width: 150px;"/>
+                <img src="https://res.cloudinary.com/daf9tr3lf/image/upload/v1738846522/2_j6hl89.png" alt="Logo" style="width: 150px;"/>
             </div>
             <p>{message}</p>
             
@@ -118,7 +118,7 @@ def send_ordinary_user_mail(to_email, message, subject="User message"):
     <body>
         <div style="max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px;">
             <div style="text-align: center; margin-bottom: 20px;">
-                <img src="https://res.cloudinary.com/daf9tr3lf/image/upload/v1736081440/1_axn4zj.png" alt="Logo" style="width: 150px;"/>
+                <img src="https://res.cloudinary.com/daf9tr3lf/image/upload/v1738846522/2_j6hl89.png" alt="Logo" style="width: 150px;"/>
             </div>
             <p>{message}</p>
             
@@ -170,7 +170,7 @@ def send_beautiful_html_email_create_account(
     <body style="font-family: Arial, sans-serif; color: #333; background-color: #f4f4f4; padding: 20px;">
         <div style="max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
             <div style="text-align: center; margin-bottom: 20px;">
-                <img src="https://res.cloudinary.com/daf9tr3lf/image/upload/v1736081440/1_axn4zj.png" alt="Bank Logo" style="width: 150px; height: auto;"/>
+                <img src="https://res.cloudinary.com/daf9tr3lf/image/upload/v1738846522/2_j6hl89.png" alt="Bank Logo" style="width: 150px; height: auto;"/>
             </div>
             <h2 style=" text-align: center;">Welcome to Our Bank!</h2>
             <p style="font-size: 16px; line-height: 1.6;">
@@ -243,7 +243,7 @@ def send_beautiful_html_email_create_account(
     <body style="font-family: Arial, sans-serif; color: #333; background-color: #f4f4f4; padding: 20px;">
         <div style="max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
             <div style="text-align: center; margin-bottom: 20px;">
-                <img src="https://res.cloudinary.com/daf9tr3lf/image/upload/v1736081440/1_axn4zj.png" alt="Bank Logo" style="width: 150px; height: auto;"/>
+                <img src="https://res.cloudinary.com/daf9tr3lf/image/upload/v1738846522/2_j6hl89.png" alt="Bank Logo" style="width: 150px; height: auto;"/>
             </div>
             
             <p style="font-size: 16px; line-height: 1.6;">
@@ -308,7 +308,7 @@ def send_password_reset_email(to_email, reset_link):
     <body>
         <div style="max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px;">
             <div style="text-align: center; margin-bottom: 20px;">
-                <img src="https://res.cloudinary.com/daf9tr3lf/image/upload/v1736081440/1_axn4zj.png" alt="Logo" style="width: 150px;"/>
+                <img src="https://res.cloudinary.com/daf9tr3lf/image/upload/v1738846522/2_j6hl89.png" alt="Logo" style="width: 150px;"/>
             </div>
             <h2>Password Reset</h2>
             <p>You requested a password reset. Click the link below to set a new password:</p>
@@ -359,7 +359,7 @@ def send_otp_code_verification(to_email, otp_code, transaction_type):
     <body>
         <div style="max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px;">
             <div style="text-align: center; margin-bottom: 20px;">
-                <img src="https://res.cloudinary.com/daf9tr3lf/image/upload/v1736081440/1_axn4zj.png" alt="Logo" style="width: 150px;"/>
+                <img src="https://res.cloudinary.com/daf9tr3lf/image/upload/v1738846522/2_j6hl89.png" alt="Logo" style="width: 150px;"/>
             </div>
             <h2>OTP Verification</h2>
             <p>Your transaction is almost complete. We noticed you are trying to initiate a {transaction_type}.</p>
@@ -401,7 +401,7 @@ def send_transaction_mail(to_email, message, subject="OTP Verification"):
     <body>
         <div style="max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px;">
             <div style="text-align: center; margin-bottom: 20px;">
-                <img src="https://res.cloudinary.com/daf9tr3lf/image/upload/v1736081440/1_axn4zj.png" alt="Logo" style="width: 150px;"/>
+                <img src="https://res.cloudinary.com/daf9tr3lf/image/upload/v1738846522/2_j6hl89.png" alt="Logo" style="width: 150px;"/>
             </div>
             <p>Your transaction is almost complete.</p>
             <p>{message}</p>
@@ -444,7 +444,7 @@ def send_contact_mail( message, subject="Mail from Customer", to_email=ADMIN_EMA
     <body>
         <div style="max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px;">
             <div style="text-align: center; margin-bottom: 20px;">
-                <img src="https://res.cloudinary.com/daf9tr3lf/image/upload/v1736081440/1_axn4zj.png" alt="Logo" style="width: 150px;"/>
+                <img src="https://res.cloudinary.com/daf9tr3lf/image/upload/v1738846522/2_j6hl89.png" alt="Logo" style="width: 150px;"/>
             </div>
             <p>{message}</p>
             
@@ -484,7 +484,7 @@ def send_mail_from_admin_to_user(to_email, message, subject):
     <body>
         <div style="max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px;">
             <div style="text-align: center; margin-bottom: 20px;">
-                <img src="https://res.cloudinary.com/daf9tr3lf/image/upload/v1736081440/1_axn4zj.png" alt="Logo" style="width: 150px;"/>
+                <img src="https://res.cloudinary.com/daf9tr3lf/image/upload/v1738846522/2_j6hl89.png" alt="Logo" style="width: 150px;"/>
             </div>
             <p>{message}</p>
             
@@ -521,7 +521,7 @@ def send_mail_for_payment_options(to_email, message, subject):
     <body>
         <div style="max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px;">
             <div style="text-align: center; margin-bottom: 20px;">
-                <img src="https://res.cloudinary.com/daf9tr3lf/image/upload/v1736081440/1_axn4zj.png" alt="Logo" style="width: 150px;"/>
+                <img src="https://res.cloudinary.com/daf9tr3lf/image/upload/v1738846522/2_j6hl89.png" alt="Logo" style="width: 150px;"/>
             </div>
             <p>{message}</p>
             
