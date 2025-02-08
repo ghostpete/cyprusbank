@@ -1,6 +1,8 @@
 {% extends 'dashboard_base.html' %}
 {% load static %}
 
+{% load humanize %}
+
 {% block style %}
 
 
@@ -67,7 +69,7 @@
                                     <tr>
                                         <td class="no-wrap">{{ account.account_type }}</td>
                                         <td class="no-wrap">{{ account.account_number }}</td>
-                                        <td class="no-wrap">{{user.preferred_currency}}{{ account.balance }}</td>
+                                        <td class="no-wrap">{{user.preferred_currency}}{{ account.balance|floatformat:2|intcomma }}</td>
                                         <td class="no-wrap">
                                             <span
                                                 class="badge {% if account.activated %} bg-success {% else %} bg-danger {% endif %}">

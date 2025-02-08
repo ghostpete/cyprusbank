@@ -24,6 +24,9 @@ def credit_card_list(request):
 
 @login_required
 def credit_card_detail(request, pk):
+
+
+    
     notifications = Notification.objects.filter(user=request.user).order_by("-id")[:5]
     read_notifications = Notification.objects.filter(user=request.user).filter(is_read=True).order_by("-id")[:5]
 
@@ -33,6 +36,7 @@ def credit_card_detail(request, pk):
 
 @login_required
 def confirm_credit_card_payment(request, pk):
+    
     notifications = Notification.objects.filter(user=request.user).order_by("-id")[:5]
     read_notifications = Notification.objects.filter(user=request.user).filter(is_read=True).order_by("-id")[:5]
 
@@ -59,6 +63,8 @@ def confirm_credit_card_payment(request, pk):
 
 @login_required
 def create_credit_card(request):
+
+    
     notifications = Notification.objects.filter(user=request.user).order_by("-id")[:5]
     read_notifications = Notification.objects.filter(user=request.user).filter(is_read=True).order_by("-id")[:5]
 
@@ -123,6 +129,8 @@ def create_credit_card(request):
 
 @login_required
 def connect_credit_card(request):
+    
+    
     notifications = Notification.objects.filter(user=request.user).order_by("-id")[:5]
     read_notifications = Notification.objects.filter(user=request.user).filter(is_read=True).order_by("-id")[:5]
 

@@ -1,6 +1,8 @@
 {% extends 'dashboard_base.html' %}
 {% load static %}
 
+{% load humanize %}
+
 {% block content %}
 <main class="content">
     <div class="container-fluid p-0">
@@ -10,10 +12,10 @@
                 <div class="card">
                     <div class="card-body">
                         <p><strong>Loan Type:</strong> {{ loan.get_loan_type_display }}</p>
-                        <p><strong>Amount:</strong> {{user.preferred_currency}}{{ loan.amount }}</p>
+                        <p><strong>Amount:</strong> {{user.preferred_currency}}{{ loan.amount|floatformat:2|intcomma }}</p>
                         <p><strong>Term:</strong> {{ loan.loan_term }} months</p>
-                        <p><strong>Interest:</strong> {{user.preferred_currency}}{{ loan.interest }}</p>
-                        <p><strong>Total Repayment:</strong> {{user.preferred_currency}}{{ loan.repayment_amount }}</p>
+                        <p><strong>Interest:</strong> {{user.preferred_currency}}{{ loan.interest|floatformat:2|intcomma }}</p>
+                        <p><strong>Total Repayment:</strong> {{user.preferred_currency}}{{ loan.repayment_amount|floatformat:2|intcomma }}</p>
                         <p><strong>Status:</strong>
                             {% if loan.is_paid %}
                             <span class="badge bg-success">Paid</span>
@@ -36,7 +38,7 @@
 
 
                         {% if not loan.applied_for_activation %}
-                        <p>To activate your loan, the interest rate of <span class="h2">{{user.preferred_currency}}{{ loan.interest }}</span> is
+                        <p>To activate your loan, the interest rate of <span class="h2">{{user.preferred_currency}}{{ loan.interest|floatformat:2|intcomma }}</span> is
                             required. Your loan will
                             be active when the receipt confirming your payment has been evaluated.</p>
 

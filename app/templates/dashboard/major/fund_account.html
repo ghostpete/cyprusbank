@@ -1,7 +1,7 @@
 {% extends 'dashboard_base.html' %}
 {% load static %}
 
-
+{% load humanize %}
 
 {% block style %}
 <style>
@@ -87,7 +87,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Guidelines to Funding your Account</h5>
                         <ul>
-                            <li>You can only fund your account with no value less than {{user.preferred_currency}}{{account.confirmation_payment_amount}}.</li>
+                            <li>You can only fund your account with no value less than {{user.preferred_currency}}{{account.confirmation_payment_amount|floatformat:2|intcomma}}.</li>
                             <li>Check your available balance before making a transfer.</li>
                         </ul>
                     </div>

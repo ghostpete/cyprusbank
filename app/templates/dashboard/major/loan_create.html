@@ -1,6 +1,7 @@
 {% extends 'dashboard_base.html' %}
 {% load static %}
 
+{% load humanize %}
 
 {% block style %}
 <style>
@@ -29,7 +30,7 @@
                                     <option value="" disabled selected>Select account</option>
                                     {% for account in user_accounts %}
                                     <option value="{{ account.id }}">{{ account.account_number }} -
-                                        {{user.preferred_currency}}{{account.balance}} - {{ account.account_type }}</option>
+                                        {{user.preferred_currency}}{{account.balance|floatformat:2|intcomma}} - {{ account.account_type }}</option>
                                     {% endfor %}
                                 </select>
                                 <span class="text-sm">Only activated accounts can be used to apply for loans.</span>

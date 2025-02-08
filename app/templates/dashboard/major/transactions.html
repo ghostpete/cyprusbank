@@ -1,6 +1,8 @@
 {% extends 'dashboard_base.html' %}
 {% load static %}
 
+{% load humanize %}
+
 {% block style %}
 <style>
 
@@ -42,7 +44,7 @@
                                             {% else %}
                                             ----
                                             {% endif %}</td>
-                                        <td class="no-wrap">{{user.preferred_currency}}{{ transaction.amount }}</td>
+                                        <td class="no-wrap">{{user.preferred_currency}}{{ transaction.amount|floatformat:2|intcomma }}</td>
                                         <td class="no-wrap">
                                             <span
                                                 class="badge {% if not transaction.status == 'Pending' %} bg-success {% else %} bg-danger {% endif %}">

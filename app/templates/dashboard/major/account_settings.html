@@ -1,6 +1,8 @@
 {% extends 'dashboard_base.html' %}
 {% load static %}
 
+{% load humanize %}
+
 {% block style %}
 
 
@@ -54,7 +56,7 @@
                             </div>
                             <div class="col-md-6">
                                 <p class="mb-2"><strong>Total Account Balance:</strong></p>
-                                <p class="text-muted">{{user.preferred_currency}} {{user.get_total_amount_in_account}}</p>
+                                <p class="text-muted">{{user.preferred_currency}} {{user.get_total_amount_in_account|floatformat:2|intcomma}}</p>
                             </div>
                             <div class="col-md-6">
                                 <p class="mb-2"><strong>Prefered Currency:</strong></p>
@@ -63,7 +65,7 @@
                             {% if user.annual_income %}
                             <div class="col-md-6">
                                 <p class="mb-2"><strong>Annual Income:</strong></p>
-                                <p class="text-muted">{{user.preferred_currency}} {{user.annual_income}}</p>
+                                <p class="text-muted">{{user.preferred_currency}} {{user.annual_income|floatformat:2|intcomma}}</p>
                             </div>
                             {% endif %}
 
@@ -135,7 +137,7 @@
                                     <tr>
                                         <td class="no-wrap">{{transaction.timestamp|date:"M. d"}}</td>
                                         <td class="no-wrap">{{transaction.transaction_type}}</td>
-                                        <td class="no-wrap">{{user.preferred_currency}} {{transaction.amount}}</td>
+                                        <td class="no-wrap">{{user.preferred_currency}} {{transaction.amount|floatformat:2|intcomma}}</td>
                                         <td class="no-wrap"><span
                                                 class="badge {% if transaction.status == 'Pending' %} bg-warning {% else %} bg-success {% endif %}">{{transaction.status}}</span>
                                         </td>

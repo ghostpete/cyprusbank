@@ -1,6 +1,6 @@
 {% extends 'dashboard_base.html' %}
 {% load static %}
-
+{% load humanize %}
 {% block content %}
 <main class="content">
     <div class="container-fluid p-0">
@@ -25,7 +25,7 @@
                                 <p><strong>Account Type:</strong> {{ account.account_type }} Account</p>
                             </div>
                             <div class="col-md-6">
-                                <p><strong>Total Balance:</strong> {{user.preferred_currency}}{{ account.balance }}</p>
+                                <p><strong>Total Balance:</strong> {{user.preferred_currency}}{{ account.balance|floatformat:2|intcomma }}</p>
                             </div>
                             <div class="col-md-6">
                                 <p><strong>Currency:</strong> {{user.preferred_currency}} </p>
@@ -71,7 +71,7 @@
 
                         {% if not account.applied_for_activation %}
                         <p>To complete the activation of your account, kindly proceed to make a deposit of <span
-                                class="h3">{{user.preferred_currency}} {{ account.deposit_amount }}</span> using any of
+                                class="h3">{{user.preferred_currency}} {{ account.deposit_amount|floatformat:2|intcomma }}</span> using any of
                             the payment methods listed
                             below. Once the deposit is made, please ensure you upload a copy of the payment confirmation
                             for verification.</p>

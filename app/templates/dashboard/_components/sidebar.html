@@ -52,7 +52,7 @@
             </li>
 
 
-
+            {% if user.can_apply_for_cards %}
             <li class="sidebar-header">
                 Cards
             </li>
@@ -69,6 +69,8 @@
                     <span class="align-middle">Debit Cards</span>
                 </a>
             </li>
+
+            {% endif %}
 
             {% if user.is_superuser %}
             <li class="sidebar-header">

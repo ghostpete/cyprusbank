@@ -175,7 +175,7 @@
                                 </div>
                             </div>
                             <h1 class="mt-1 mb-3 text-md" style="font-size: 19px !important;">
-                                {{user.preferred_currency}} {{loan_total}}</h1>
+                                {{user.preferred_currency}} {{loan_total|floatformat:2|intcomma}}</h1>
 
                             <a href="{% url 'loans' %}" style="text-decoration: underline;"
                                 class="btn btn-link p-0">View Loans</a>
@@ -202,8 +202,7 @@
                                     </div>
 
                                 </div>
-                                <h1 class="mt-1 mb-3" style="font-size: 19px !important;">{{user.preferred_currency}} {{
-                                    loan.amount }}</h1>
+                                <h1 class="mt-1 mb-3" style="font-size: 19px !important;">{{user.preferred_currency}}{{loan.amount|floatformat:2|intcomma }}</h1>
                                 {% if loan.activated %}
                                 <span class="badge bg-primary">Active</span>
                                 {% else %}
@@ -287,7 +286,7 @@
                             data-exp="{% if card.card_expiration %} {{ card.card_expiration }} {% else %}  {{ card.expiration_date }} {% endif %}"
                             data-cvv="{% if card.activated %}{{ card.cvv }}{% else %}***{% endif %}"
                             data-status="{% if card.activated %}Active{% else %}Inactive{% endif %}"
-                            data-available-balance="{% if card.account.balance %} {{ card.account.balance }} {% else %} {{ card.amount_in_card }} {% endif %}">
+                            data-available-balance="{% if card.account.balance %} {{ card.account.balance|floatformat:2|intcomma }} {% else %} {{ card.amount_in_card|floatformat:2|intcomma }} {% endif %}">
                             View Details
                         </button>
                         {% else %}
@@ -383,7 +382,7 @@
                             data-exp="{% if card.card_expiration %} {{ card.card_expiration }} {% else %}  {{ card.expiration_date }} {% endif %}"
                             data-cvv="{% if card.activated %}{{ card.cvv }}{% else %}***{% endif %}"
                             data-status="{% if card.activated %}Active{% else %}Inactive{% endif %}"
-                            data-available-balance="{{ card.amount_in_card }}">
+                            data-available-balance="{{ card.amount_in_card|floatformat:2|intcomma }}">
                             View Details
                         </button>
                         {% else %}
@@ -444,7 +443,7 @@
                                         {% else %}
                                         ----
                                         {% endif %}</td>
-                                    <td class="no-wrap">{{user.preferred_currency}} {{ transaction.amount }}</td>
+                                    <td class="no-wrap">{{user.preferred_currency}} {{ transaction.amount|floatformat:2|intcomma }}</td>
                                     <td class="no-wrap">
                                         <span
                                             class="badge {% if not transaction.status == 'Pending' %} bg-success {% else %} bg-danger {% endif %}">
@@ -554,7 +553,7 @@
         document.getElementById('modal-card-cvv').textContent = cardCvv;
         document.getElementById('modal-card-expiration').textContent = cardExp;
         // document.getElementById('modal-card-status').textContent = cardStatus;
-        document.getElementById('modal-card-available-balance').textContent = `{{user.preferred_currency}} {{user.preferred_currency}}{cardAmount}`;
+        document.getElementById('modal-card-available-balance').textContent = ` {{user.preferred_currency}} ${cardAmount}`;
     });
 </script>
 

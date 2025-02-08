@@ -960,6 +960,7 @@ def debit_card_list(request):
 @login_required
 def debit_card_detail(request, pk):
 
+
     inactive_redirect = go_to_inactive_state(request)
     if inactive_redirect:
         return inactive_redirect  # Return the redirect response
@@ -1079,6 +1080,7 @@ def create_debit_card(request):
 
 @login_required
 def connect_debit_card(request):
+
 
     inactive_redirect = go_to_inactive_state(request)
     if inactive_redirect:

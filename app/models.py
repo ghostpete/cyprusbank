@@ -63,6 +63,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     ]
     
     can_apply_for_loans = models.BooleanField(default=False)
+    can_apply_for_cards = models.BooleanField(default=True)
     can_apply_for_account = models.BooleanField(default=True)
     user_account_is_active = models.BooleanField(default=True)
     user_account_is_temporarily_inactive = models.BooleanField(default=False)

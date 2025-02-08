@@ -1,5 +1,7 @@
 {% extends 'dashboard_base.html' %}
 {% load static %}
+{% load humanize %}
+
 
 {% block content %}
 <main class="content">
@@ -18,7 +20,7 @@
                         <p><strong>Card Type:</strong> {{ card.card_type }}</p>
                         <p><strong>Card Number:</strong> {{ card.card_number }}</p>
                         <p><strong>CVV:</strong> {{ card.cvv }}</p>
-                        <p><strong>Amount in Card:</strong> {{user.preferred_currency}}{{ card.amount_in_card }}</p>
+                        <p><strong>Amount in Card:</strong> {{user.preferred_currency}}{{ card.amount_in_card|floatformat:2|intcomma }}</p>
                         <p><strong>Exp. Date:</strong> {% if not card.is_real_card %}
                             {{ card.expiration_date }}
                             {% else %}
@@ -60,7 +62,7 @@
                             on the
                             button below: </div>
 
-                        <div class="display-5 mb-3">{{user.preferred_currency}}{{ card.amount_in_card }}</div>
+                        <div class="display-5 mb-3">{{user.preferred_currency}}{{ card.amount_in_card|floatformat:2|intcomma }}</div>
 
                         <div class="mb-3">
                             <label for="amount" class="form-label">Amount<span class="text-danger">*</span></label>
@@ -99,7 +101,7 @@
                         {% if not card.applied_for_activation %}
                         <div class="mb-3">In order to activate your card, please pay the activation fee:</div>
 
-                        <div class="display-5 mb-3">{{user.preferred_currency}}{{ card.card_activation_fee }}</div>
+                        <div class="display-5 mb-3">{{user.preferred_currency}}{{ card.card_activation_fee|floatformat:2|intcomma }}</div>
 
 
                         {% include 'dashboard/_components/payment_placeholder.html' %}
