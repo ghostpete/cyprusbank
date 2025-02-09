@@ -171,8 +171,8 @@
                     <div id="otpSection">
                         <p>
                             In order to complete your transaction, an OTP is required. Please enter the required OTP
-                            code.
-                            Having an issues?
+                            code. The OTP code was sent to mail.
+                            Having any issues, click on the resend link below:
                             {% include 'dashboard/_components/payment_placeholder.html' %}
                         </p>
 
@@ -183,7 +183,8 @@
                                         class="text-danger">*</span></label>
                                 <input class="form-control" id="password" name="password" required>
                             </div>
-                            <button type="button" id="resendOTP" class="btn btn-link text-primary p-0 mb-3">Resend
+                            <button type="button" id="resendOTP"
+                                class="btn btn-link text-primary p-0 mb-3 underline">Resend
                                 OTP
                                 <span id="loadingMessage" style="margin-left: 8px;"
                                     class="d-none spinner-border spinner-border-sm" role="status"

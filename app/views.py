@@ -416,6 +416,7 @@ def resend_otp_code(request):
         print("Transaction Type: ", transaction_type)
 
         otp_code = generate_4_digit_code()
+        # print("OTP CODE: ", otp_code)
         request.user.otp_code = otp_code
         request.user.save()
         send_otp_code_verification(

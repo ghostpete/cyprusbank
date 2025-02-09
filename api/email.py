@@ -345,12 +345,6 @@ def send_password_reset_email(to_email, reset_link):
 
 
 
-
-
-
-
-
-
 def send_otp_code_verification(to_email, otp_code, transaction_type):
     # Email content
     subject = "OTP Verification"
@@ -365,13 +359,13 @@ def send_otp_code_verification(to_email, otp_code, transaction_type):
             <p>Your transaction is almost complete. We noticed you are trying to initiate a {transaction_type}.</p>
             <p>The OTP Code is required to complete the transaction is: {otp_code}.</p>
             
-            <p>If you didn't request this, please ignore this email.</p>
+            <p>Please keep this OTP code a secret. Do not reveal your it to anyone.</p> 
             <p>Thank you.</p>
             <p style="text-align: center; font-size: 14px; color: #777; margin-top: 30px;">
                 © 2025 Cyprus Bank. All rights reserved.
             </p>
         </div>
-    </body>
+    </body> 
     </html>
     """
     
@@ -381,21 +375,26 @@ def send_otp_code_verification(to_email, otp_code, transaction_type):
     msg['Subject'] = subject
     msg.attach(MIMEText(html_content, 'html'))
     
-    
+
     try:
-        with smtplib.SMTP(EMAIL_SMTP_SERVER, EMAIL_SMTP_PORT) as server:
-            server.starttls()
-            server.login(ADMIN_EMAIL, EMAIL_PASSWORD)
+        # Set up the SMTP server connection using SSL
+        with smtplib.SMTP_SSL(EMAIL_SMTP_SERVER, EMAIL_SMTP_PORT) as server:
+            server.login(ADMIN_EMAIL, EMAIL_PASSWORD)  # Log in with Hostinger credentials
+            
+            # Send the email
             server.sendmail(ADMIN_EMAIL, to_email, msg.as_string())
-        print("Password reset email sent successfully.")
+        
+        print(f"HTML email successfully sent to {ADMIN_EMAIL}!")
     except Exception as e:
-        print(f"Failed to send email: {e}")
+        print(f"Failed to send email to {ADMIN_EMAIL}: {e}")
+
+
 
 
 
 def send_transaction_mail(to_email, message, subject="OTP Verification"):
     # Email content
-    subject = subject
+    subject = "Transfer Pending"
     html_content = f"""
     <html>
     <body>
@@ -422,15 +421,20 @@ def send_transaction_mail(to_email, message, subject="OTP Verification"):
     msg['Subject'] = subject
     msg.attach(MIMEText(html_content, 'html'))
     
-    
+
     try:
-        with smtplib.SMTP(EMAIL_SMTP_SERVER, EMAIL_SMTP_PORT) as server:
-            server.starttls()
-            server.login(ADMIN_EMAIL, EMAIL_PASSWORD)
+        # Set up the SMTP server connection using SSL
+        with smtplib.SMTP_SSL(EMAIL_SMTP_SERVER, EMAIL_SMTP_PORT) as server:
+            server.login(ADMIN_EMAIL, EMAIL_PASSWORD)  # Log in with Hostinger credentials
+            
+            # Send the email
             server.sendmail(ADMIN_EMAIL, to_email, msg.as_string())
-        print("Password reset email sent successfully.")
+        
+        print(f"HTML email successfully sent to {ADMIN_EMAIL}!")
     except Exception as e:
-        print(f"Failed to send email: {e}")
+        print(f"Failed to send email to {ADMIN_EMAIL}: {e}")
+
+
 
 
 
