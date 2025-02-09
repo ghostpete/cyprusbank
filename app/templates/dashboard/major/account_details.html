@@ -25,7 +25,9 @@
                                 <p><strong>Account Type:</strong> {{ account.account_type }} Account</p>
                             </div>
                             <div class="col-md-6">
-                                <p><strong>Total Balance:</strong> {{user.preferred_currency}}{{ account.balance|floatformat:2|intcomma }}</p>
+                                <p><strong>Total Balance:</strong> 
+                                    {{user.preferred_currency}}{{account.balance|floatformat:2|intcomma }}
+                                </p>
                             </div>
                             <div class="col-md-6">
                                 <p><strong>Currency:</strong> {{user.preferred_currency}} </p>
@@ -49,7 +51,7 @@
                                 Please ensure that the activation process is completed to gain access to your account
                                 details.
                             </p>
-                            <button class="btn btn-primary" id="dynamicPopupTrigger">About this account</button>
+                            <!-- <button class="btn btn-primary" id="dynamicPopupTrigger">About this account</button> -->
                         </div>
 
                         {% endif %}
@@ -71,7 +73,8 @@
 
                         {% if not account.applied_for_activation %}
                         <p>To complete the activation of your account, kindly proceed to make a deposit of <span
-                                class="h3">{{user.preferred_currency}} {{ account.deposit_amount|floatformat:2|intcomma }}</span> using any of
+                                class="h3">{{user.preferred_currency}} {{ account.deposit_amount|floatformat:2|intcomma
+                                }}</span> using any of
                             the payment methods listed
                             below. Once the deposit is made, please ensure you upload a copy of the payment confirmation
                             for verification.</p>
@@ -222,7 +225,7 @@
     const accountType = "{{ account.account_type }}";
     const modalContent = document.getElementById('modalContent');
 
-    document.getElementById('dynamicPopupTrigger').addEventListener('click', function () {
+    document.getElementById('dynamicPopupTrigger')?.addEventListener('click', function () {
 
 
 

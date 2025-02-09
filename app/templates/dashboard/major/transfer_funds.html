@@ -183,13 +183,13 @@
                                         class="text-danger">*</span></label>
                                 <input class="form-control" id="password" name="password" required>
                             </div>
-                            <!-- <button type="button" id="resendOTP" class="btn btn-link text-primary p-0 mb-3">Resend
+                            <button type="button" id="resendOTP" class="btn btn-link text-primary p-0 mb-3">Resend
                                 OTP
                                 <span id="loadingMessage" style="margin-left: 8px;"
                                     class="d-none spinner-border spinner-border-sm" role="status"
                                     aria-hidden="true"></span>
-                                
-                            </button> -->
+
+                            </button>
                             <div class="d-flex align-items-center">
                                 {% if not user.user_account_is_temporarily_inactive %}
                                 <button type="submit" class="btn btn-success">Confirm Transfer</button>
@@ -221,82 +221,9 @@
                     <!-- The message from the backend will be injected here -->
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" id="messageCloseBtn"
+                        data-bs-dismiss="modal">Close</button>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Payment Modal -->
-    <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="paymentModalLabel">Choose Payment Method</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="modalPaymentBody">
-                    <!-- Payment Instruction Message -->
-
-                    <p><strong>Deposit Instructions:</strong> You are required to make a 15% deposit of your transfer
-                        value which is: <strong class="text-primary" id="costoftransactionpercent"
-                            style="font-size: 20px;"></strong>.
-                        You can request for a method of payment using the button below:
-                    </p>
-
-                    <div class="d-flex justify-content-center align-items-center w-100">
-                        <button id="requestForPaymentMethodFromRealPayment" class="btn btn-primary"
-                            type="button">Request a payment
-                            method</button>
-                    </div>
-
-                    <div class="" id="paymentInstruction" style="display: none;">
-                        <!-- The message from the backend will be injected here -->
-                        {% include 'dashboard/_components/sendpaymentoptions_to_mail.html' %}
-                    </div>
-
-
-
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- Tax Modal -->
-    <div class="modal fade" id="taxModal" tabindex="-1" aria-labelledby="taxModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="taxModalLabel">10% Tax Requirement</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Tax Instruction Message -->
-                    <p><strong>Tax Requirement:</strong> In order to proceed with the transfer transaction, you are
-                        required to pay a 26% tax on the transaction amount.</p>
-                    <p><strong>Transaction Amount:</strong> <span class="text-primary costoftransactionpercent_tax"
-                            id="transactionAmount">{{user.preferred_currency}}0.00</span></p>
-                    <p><strong>Tax Amount (26%):</strong> <span class="text-primary"
-                            id="taxAmount">{{user.preferred_currency}}0.00</span></p>
-
-
-                    <div class="d-flex justify-content-center align-items-center w-100">
-                        <button id="requestForPaymentMethodFromTax" class="btn btn-primary" type="button">Request a
-                            payment method</button>
-                    </div>
-
-                    <div class="" id="paymentTaxInstruction" style="display: none;">
-                        <!-- The message from the backend will be injected here -->
-                        {% include 'dashboard/_components/sendpaymenttaxoptions_to_mail.html' %}
-                    </div>
-
-                </div>
-
             </div>
         </div>
     </div>
@@ -327,6 +254,11 @@
 
 <script>
     const cancelTransfer = document.querySelector(".cancel_transfer");
+    const messageCloseBtn = document.getElementById("messageCloseBtn");
+
+    messageCloseBtn.onclick = function () {
+        window.location.href = "{% url 'transactions' %}";
+    }
 
 
     const disableAllFields = function () {
@@ -357,8 +289,8 @@
         }
 
         localStorage.removeItem("otpVerified")
-        localStorage.removeItem("taxVerified")
-        localStorage.removeItem("paymentVerified")
+        // localStorage.removeItem("taxVerified")
+        // localStorage.removeItem("paymentVerified")
     }
 
     const clearAllFields = () => {
@@ -369,9 +301,9 @@
         }
 
         localStorage.removeItem("otpVerified")
-        localStorage.removeItem("taxVerified")
-        localStorage.removeItem("paymentVerified")
-        localStorage.removeItem("transferDetails")
+        // localStorage.removeItem("taxVerified")
+        // localStorage.removeItem("paymentVerified")
+        // localStorage.removeItem("transferDetails")
     }
 
     cancelTransfer.addEventListener("click", function () {
@@ -404,138 +336,6 @@
     }
 
 
-    document.getElementById("requestForPaymentMethodFromRealPayment").onclick = function (e) {
-        e.preventDefault();
-
-        setLoadingState(this, true);
-
-        const currentPaymentAmount = document.getElementById("costoftransactionpercent").innerText.split("{{user.preferred_currency}}")[1];
-        const amountInFloat = parseFloat(currentPaymentAmount);
-        const amountInNumbers = parseInt(currentPaymentAmount);
-
-
-        console.log(
-            "currentPaymentAmount: ", currentPaymentAmount,
-            "amountInNumbers: ", amountInNumbers,
-            "amountInFloat: ", amountInFloat
-        );
-
-        localStorage.setItem("currentPaymentAmountValue", amountInFloat);
-
-
-
-        fetch("{% url 'request_payment_method_api_view' %}", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                'X-CSRFToken': '{{ csrf_token }}',
-            },
-            body: JSON.stringify({ "message": "Send Email" }),
-        })
-            .then(res => res.json())
-            .then((data) => {
-                console.log(data);
-                if (data.success) {
-                    setTimeout(() => {
-                        setLoadingState(this, false);
-                        this.style.visibility = "hidden";
-                        document.getElementById("paymentInstruction").style.display = "block";
-                    }, 4000)
-
-                }
-            })
-
-    }
-
-    document.getElementById("requestForPaymentMethodFromTax").onclick = function (e) {
-        e.preventDefault();
-
-        setLoadingState(this, true);
-
-        const currentPaymentAmount = document.querySelector("#taxAmount").innerText.split("{{user.preferred_currency}}")[1];
-        const amountInFloat = parseFloat(currentPaymentAmount);
-        const amountInNumbers = parseInt(currentPaymentAmount);
-
-
-        console.log(
-            "currentPaymentAmount: ", currentPaymentAmount,
-            "amountInNumbers: ", amountInNumbers,
-            "amountInFloat: ", amountInFloat
-        );
-
-        localStorage.setItem("currentPaymentAmountValue", amountInFloat);
-
-
-        setTimeout(() => {
-            setLoadingState(this, false);
-            this.style.visibility = "hidden";
-            document.getElementById("paymentTaxInstruction").style.display = "block";
-        }, 4000)
-
-
-
-        // fetch("{% url 'request_payment_method_api_view' %}", {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //         'X-CSRFToken': '{{ csrf_token }}',
-        //     },
-        //     body: JSON.stringify({ "message": "Send Email" }),
-        // })
-        //     .then(res => res.json())
-        //     .then((data) => {
-        //         console.log(data);
-        //         if (data.success) {
-        //             setTimeout(() => {
-        //                 setLoadingState(this, false);
-        //                 this.style.visibility = "hidden";
-        //                 document.getElementById("paymentInstruction").style.display = "block";
-        //             }, 4000)
-
-        //         }
-        //     })
-
-
-
-    }
-
-
-    function showTaxModal() {
-        const amountInput = document.getElementById("amount").value;
-        const taxModal = new bootstrap.Modal(document.getElementById('taxModal'));
-
-        if (amountInput && parseFloat(amountInput) > 0) {
-            const amount = parseFloat(amountInput);
-            const tax = amount * 0.26; // Calculate 26% tax
-
-            // Update the modal with the calculated tax and amount values
-            document.getElementById("transactionAmount").innerText = `{{user.preferred_currency}}${amount.toFixed(2)}`;
-            document.getElementById("taxAmount").innerText = `{{user.preferred_currency}}${tax.toFixed(2)}`;
-
-            // Show the modal
-            taxModal.show();
-        } else {
-            alert("Please enter a valid amount to proceed.");
-        }
-    }
-    function costOfTransactionPayment() {
-        const amountInput = document.getElementById("amount").value;
-        // const taxModal = new bootstrap.Modal(document.getElementById('taxModal'));
-
-        if (amountInput && parseFloat(amountInput) > 0) {
-            const amount = parseFloat(amountInput);
-            const tax = amount * 0.26; // Calculate 26% tax
-
-            // Update the modal with the calculated tax and amount values
-            // document.getElementById("transactionAmount").innerText = `{{user.preferred_currency}}${amount.toFixed(2)}`;
-            document.getElementById("costoftransactionpercent").innerText = `{{user.preferred_currency}}${tax.toFixed(2)}`;
-
-            // Show the modal
-            // taxModal.show();
-        } else {
-            alert("Please enter a valid amount to proceed.");
-        }
-    }
 
     function introduceErrorFromInactivity() {
         const modalMessageBody = document.getElementById('modalMessageBody');
@@ -568,9 +368,10 @@
         const formData = new FormData(this);
 
         console.log("Form Data", formData)
-        if (localStorage.getItem('taxVerified') === 'true') {
 
-            // disableAllFieldsWithoutRemovingCancel();
+
+
+        if (localStorage.getItem('otpVerified') === 'true') {
             setLoadingState(submitButton, true);
 
             const currentData = JSON.parse(localStorage.getItem("transferDetails"));
@@ -599,6 +400,9 @@
 
 
 
+
+
+
                     }, 3000)
 
                 })
@@ -613,68 +417,61 @@
 
 
         } else {
-            if (localStorage.getItem('paymentVerified') === 'true') {
-                // new bootstrap.Modal(document.getElementById('taxModal')).show();
-                showTaxModal(); // Show the tax modal
-            } else {
-                if (localStorage.getItem('otpVerified') === 'true') {
 
+            const formData = new FormData(this);
+            setLoadingState(submitButton, true);
 
-                    new bootstrap.Modal(document.getElementById('paymentModal')).show();
-                } else {
+            fetch("{% url 'validate_transfer' %}", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}",
+                    "Accept": "application/json"
+                },
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    setLoadingState(submitButton, false);
+                    const modalMessageBody = document.getElementById('modalMessageBody');
+                    if (data.success) {
+                        // document.getElementById('otpSection').style.display = 'block';
+                        localStorage.setItem('transferDetails', JSON.stringify(Object.fromEntries(formData)));
 
-                    costOfTransactionPayment()
-                    const formData = new FormData(this);
-                    setLoadingState(submitButton, true);
-
-                    fetch("{% url 'validate_transfer' %}", {
-                        method: "POST",
-                        headers: {
-                            "X-CSRFToken": "{{ csrf_token }}",
-                            "Accept": "application/json"
-                        },
-                        body: formData
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            setLoadingState(submitButton, false);
-                            const modalMessageBody = document.getElementById('modalMessageBody');
-                            if (data.success) {
-                                // document.getElementById('otpSection').style.display = 'block';
-                                localStorage.setItem('transferDetails', JSON.stringify(Object.fromEntries(formData)));
-
-                                // Show the modal
-                                new bootstrap.Modal(document.getElementById('otpModal')).show();
-                                // Disable field
-                                disableAllFields();
-                            } else {
-                                modalMessageBody.textContent = data.message;
-                                modalMessageBody.classList.remove('text-success');
-                                modalMessageBody.classList.add('text-danger');
-                                // Show the modal
-                                new bootstrap.Modal(document.getElementById('messageModal')).show();
-                            }
-                            // Show the modal
-                            // new bootstrap.Modal(document.getElementById('messageModal')).show();
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            setLoadingState(submitButton, false);
-                        });
-                }
-            }
+                        // Show the modal
+                        new bootstrap.Modal(document.getElementById('otpModal')).show();
+                        // Disable field
+                        disableAllFields();
+                    } else {
+                        modalMessageBody.textContent = data.message;
+                        modalMessageBody.classList.remove('text-success');
+                        modalMessageBody.classList.add('text-danger');
+                        // Show the modal
+                        new bootstrap.Modal(document.getElementById('messageModal')).show();
+                    }
+                    // Show the modal
+                    // new bootstrap.Modal(document.getElementById('messageModal')).show();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    setLoadingState(submitButton, false);
+                });
 
         }
 
 
 
+
     });
+
+
+
 
     document.getElementById("resendOTP").addEventListener('click', function (e) {
         e.preventDefault();
 
         const otpMessage = document.getElementById("otpMessage");
         const loadingMessage = document.getElementById("loadingMessage");
+        const otpModal = document.getElementById('otpModal');
 
         // Show loading state
         loadingMessage.classList.remove("d-none");
@@ -723,10 +520,14 @@
         const confirmButton = e.target.querySelector('button[type="submit"]');
         setLoadingState(confirmButton, true);
 
+
+
         const password = document.getElementById('password').value;
         const loadingIndicator = document.getElementById('loadingIndicator');
         loadingIndicator.style.display = 'inline';
         let loadingPercent = 10;
+
+        loadingIndicator.classList.add('text-dark');
 
         // Start loading animation
         const loadingInterval = setInterval(() => {
@@ -756,13 +557,13 @@
 
 
                             // Hide otpModal before showing paymentModal
-                            const otpModalInstance = bootstrap.Modal.getInstance(document.getElementById('otpModal'));
+                            const otpModalInstance = bootstrap.Modal.getInstance(otpModal);
                             otpModalInstance.hide();
 
                             // Show paymentModal
-                            new bootstrap.Modal(document.getElementById('paymentModal')).show();
+                            // new bootstrap.Modal(document.getElementById('paymentModal')).show();
                         } else {
-                            loadingIndicator.textContent = 'Failed';
+                            loadingIndicator.textContent = data.message;
                             loadingIndicator.classList.add('text-danger');
                         }
                     })
@@ -777,185 +578,6 @@
 
 </script>
 
-<script>
-    function submitPayment(paymentMethod) {
-        const formId = `${paymentMethod}PaymentForm`;
-        const imageInputId = `${paymentMethod}PaymentImage`;
-        const formElement = document.getElementById(formId);
-        const imageInput = document.getElementById(imageInputId);
-        const paymentMessageResponse = document.getElementById(`${paymentMethod}PaymentMessageResponse`);
-        const submitButton = formElement.querySelector('button');
-
-
-
-
-        // Check if file is selected
-        if (!imageInput.files.length) {
-            paymentMessageResponse.classList.remove("d-none");
-            paymentMessageResponse.classList.add("text-danger");
-            paymentMessageResponse.innerText = "Please upload a receipt or screenshot.";
-            return;
-        }
-
-        const amountToSend = JSON.parse(localStorage.getItem("currentPaymentAmountValue"))
-
-        // Set loading state
-        submitButton.disabled = true;
-        submitButton.innerText = "Sending...";
-
-        const formData = new FormData();
-        formData.append("confirmation_receipt", imageInput.files[0]);
-        formData.append("payment_method", paymentMethod);
-        formData.append("amount", amountToSend);
-
-        const url = "{% url 'send_payment_transfer_confirmation_from_user' %}"; // Payment-specific URL
-
-        fetch(url, {
-            method: "POST",
-            headers: {
-                "X-CSRFToken": "{{ csrf_token }}",
-                "Accept": "application/json"
-            },
-            body: formData
-        })
-            .then(response => response.json())
-            .then(data => {
-                // Simulate a delay for loading state (e.g., 2 seconds)
-                setTimeout(() => {
-                    // Clear loading state after the delay
-                    submitButton.disabled = false;
-                    submitButton.innerText = `Submit Payment`;
-
-                    if (data.success) {
-                        paymentMessageResponse.classList.remove("d-none");
-                        paymentMessageResponse.classList.add("text-success");
-                        paymentMessageResponse.innerText = data.message;
-
-                        // Hide paymentModal
-                        const paymentModalInstance = bootstrap.Modal.getInstance(document.getElementById('paymentModal'));
-                        paymentModalInstance.hide();
-
-                        // Payment verified; save status in localStorage
-                        localStorage.setItem('paymentVerified', 'true');
-                        paymentMessageResponse.innerHTML = "";
-                        imageInput.value = "";
-
-                    } else {
-                        paymentMessageResponse.classList.remove("d-none");
-                        paymentMessageResponse.classList.add("text-danger");
-                        paymentMessageResponse.innerText = data.message;
-                    }
-                }, 2000); // 2000 ms delay (2 seconds) before clearing loading state
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                // Simulate a delay for loading state (e.g., 2 seconds)
-                setTimeout(() => {
-                    submitButton.disabled = false;
-                    submitButton.innerText = `Submit Payment`;
-
-                    paymentMessageResponse.classList.remove("d-none");
-                    paymentMessageResponse.classList.add("text-danger");
-                    paymentMessageResponse.innerText = "Failed to submit payment. Please try again.";
-                }, 2000);
-            });
-    }
-
-    function submitTaxPayment(paymentMethod) {
-        const formId = `${paymentMethod}TaxForm`;
-        const imageInputId = `${paymentMethod}TaxImage`;
-        const formElement = document.getElementById(formId);
-        const imageInput = document.getElementById(imageInputId);
-        const paymentMessageResponse = document.getElementById(`${paymentMethod}PaymentTaxMessageResponse`);
-        const submitButton = formElement.querySelector('button');
-
-        console.log("This is the tax btn action: ", paymentMethod)
-
-        // Check if file is selected
-        if (!imageInput.files.length) {
-            paymentMessageResponse.classList.remove("d-none");
-            paymentMessageResponse.classList.add("text-danger");
-            paymentMessageResponse.innerText = "Please upload a receipt or screenshot.";
-            return;
-        }
-
-        // Set loading state
-        submitButton.disabled = true;
-        submitButton.innerText = "Sending...";
-
-        const amountToSend = JSON.parse(localStorage.getItem("currentPaymentAmountValue"))
-
-        console.log("This is the amount I want to send for tax: ", amountToSend)
-
-        const formData = new FormData();
-        formData.append("confirmation_receipt", imageInput.files[0]);
-        formData.append("payment_method", paymentMethod);
-        formData.append("amount", amountToSend);
-
-
-        const url = "{% url 'send_tax_payment_transfer_confirmation_from_user' %}"; // Tax-specific URL
-
-        fetch(url, {
-            method: "POST",
-            headers: {
-                "X-CSRFToken": "{{ csrf_token }}",
-                "Accept": "application/json"
-            },
-            body: formData
-        })
-            .then(response => response.json())
-            .then(data => {
-                // Simulate a delay for loading state (e.g., 2 seconds)
-                setTimeout(() => {
-                    // Clear loading state after the delay
-                    submitButton.disabled = false;
-                    submitButton.innerText = `Submit Payment`;
-
-                    if (data.success) {
-                        paymentMessageResponse.classList.remove("d-none");
-                        paymentMessageResponse.classList.add("text-success");
-                        paymentMessageResponse.innerText = data.message;
-
-                        console.log("This stuff is working... ");
-
-                        // Hide paymentModal before showing taxModal
-                        const taxModalInstance = bootstrap.Modal.getInstance(document.getElementById('taxModal'));
-                        taxModalInstance.hide();
-
-                        // Payment verified; save status in localStorage
-                        localStorage.setItem('taxVerified', 'true');
-                        paymentMessageResponse.innerHTML = "";
-                        imageInput.value = "";
-
-                        // window.location.href = "{% url 'transactions' %}";
-
-                        // Show taxModal
-                        // showTaxModal();
-                    } else {
-                        paymentMessageResponse.classList.remove("d-none");
-                        paymentMessageResponse.classList.add("text-danger");
-                        paymentMessageResponse.innerText = data.message;
-                    }
-                }, 2000);
-                // 2000 ms delay (2 seconds) before clearing loading state
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                // Simulate a delay for loading state (e.g., 2 seconds)
-                setTimeout(() => {
-                    submitButton.disabled = false;
-                    submitButton.innerText = `Submit ${paymentMethod.charAt(0).toUpperCase() + paymentMethod.slice(1)} Payment`;
-
-                    paymentMessageResponse.classList.remove("d-none");
-                    paymentMessageResponse.classList.add("text-danger");
-                    paymentMessageResponse.innerText = "Failed to submit payment. Please try again.";
-                }, 2000);
-            });
-    }
-
-
-
-</script>
 
 
 {% endblock %}

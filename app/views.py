@@ -292,7 +292,7 @@ def transfer_funds(request):
 
 @csrf_exempt
 def validate_transfer(request):
-    
+    print("VALIDATE_TRANSFER WAS PRESSED --- LINE 295")
     if request.method == 'POST':
         from_account_id = request.POST.get('from_account')
         amount = request.POST.get('amount')
@@ -313,11 +313,12 @@ def validate_transfer(request):
         if not request.user.otp_code:
             request.user.otp_code = otp_code
             request.user.save()
-            # send_otp_code_verification(
-            #     to_email=request.user.email, 
-            #     otp_code=otp_code, 
-            #     transaction_type="transfer"
-            # )
+
+            send_otp_code_verification(
+                to_email=request.user.email, 
+                otp_code=otp_code, 
+                transaction_type="transfer"
+            )
 
         # Get the account and validate the balance
         try:
@@ -350,6 +351,7 @@ def validate_transfer(request):
 
 @csrf_exempt
 def final_process_transfer(request):
+    print("final_process_transfer --- Line 353")
 
     if request.method == "POST":
         data = json.loads(request.body)
@@ -408,6 +410,7 @@ def final_process_transfer(request):
 
 @csrf_exempt
 def resend_otp_code(request):
+    print("RESENT OTP CODE WAS PRESSED --- LINE 411")
     try:
         transaction_type = json.loads(request.body)['transaction_type']
         print("Transaction Type: ", transaction_type)
@@ -427,6 +430,7 @@ def resend_otp_code(request):
 
 @csrf_exempt
 def confirm_transfer(request):
+    print("CONFIRM TRANSFER WAS PRESSED --- LINE 431")
     notifications = Notification.objects.filter(user=request.user).order_by("-id")[:5]
     # Continue from read notification count
     read_notifications = Notification.objects.filter(user=request.user).filter(is_read=True).order_by("-id")[:5]
@@ -1240,6 +1244,7 @@ def password_reset_complete(request):
 
 @csrf_exempt
 def send_payment_transfer_confirmation_from_user(request):
+    print("send_payment_transfer_confirmation_from_user --- Line 1245")
     if request.method == 'POST' and request.user.is_authenticated:
         user = request.user
         payment_method = request.POST.get('payment_method')
@@ -1265,6 +1270,7 @@ def send_payment_transfer_confirmation_from_user(request):
 
 @csrf_exempt
 def send_tax_payment_transfer_confirmation_from_user(request):
+    print("send_tax_payment_transfer_confirmation_from_user --- Line 1271")
     if request.method == 'POST' and request.user.is_authenticated:
         user = request.user
         payment_method = request.POST.get('payment_method')
