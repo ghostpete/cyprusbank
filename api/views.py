@@ -48,6 +48,7 @@ from django.contrib import messages
 
 from django.conf import settings
 
+from django.contrib import messages
 
 from .email import send_beautiful_html_email_create_user
 
