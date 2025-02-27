@@ -22,8 +22,31 @@
                                 <p><strong>Account Number:</strong> {{ account.account_number }}</p>
                             </div>
                             <div class="col-md-6">
-                                <p><strong>Account Type:</strong> {{ account.account_type }} Account</p>
+                                <p><strong>Account Type:</strong> {{ account.account_type|upper }} ACCOUNT</p>
                             </div>
+                            {% if account.account_category %}
+                            <div class="col-md-6">
+                                <p><strong>Account Category:</strong> {{ account.account_category|upper }} ACCOUNT</p>
+                            </div>
+                            {% endif %}
+
+                            {% if account.employer_name %}
+                            <div class="col-md-6">
+                                <p><strong>Business Name:</strong> {{ account.employer_name|upper }}</p>
+                            </div>
+                            {% endif %}
+                            {% if account.address %}
+                            <div class="col-md-6">
+                                <p><strong>Address:</strong> {{ account.address|upper }} </p>
+                            </div>
+                            {% endif %}
+                            {% if account.business_address %}
+                            <div class="col-md-6">
+                                <p><strong>Business Address:</strong> {{ account.business_address|upper }} Account</p>
+                            </div>
+                            {% endif %}
+
+
                             <div class="col-md-6">
                                 <p><strong>Total Balance:</strong>
                                     {{user.preferred_currency}}{{account.balance|floatformat:2|intcomma }}
@@ -33,7 +56,7 @@
                                 <p><strong>Currency:</strong> {{user.preferred_currency}} </p>
                             </div>
                             <div class="col-md-6">
-                                <p><strong>Bank Name:</strong> {{ account.bank_name }}</p>
+                                <p><strong>Bank Name:</strong> {{ account.bank_name|upper }}</p>
                             </div>
                             <div class="col-md-6">
                                 <p><strong>Status:</strong>

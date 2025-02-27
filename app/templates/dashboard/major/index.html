@@ -121,8 +121,12 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col mt-0">
-                                    <h5 class="card-title text-capitalize">{{ account.account_type }}
-                                        {{account_model_meta.model_name | upper}}
+                                    <h5 class="card-title text-capitalize">
+                                        {% if account.account_category == 'Business' %}
+                                        {{account.account_category|upper}}
+                                        {% endif %}
+                                        {{ account.account_type }}
+                                        {{account_model_meta.model_name|upper}}
                                     </h5>
                                 </div>
                                 <div class="col-auto">
@@ -202,7 +206,8 @@
                                     </div>
 
                                 </div>
-                                <h1 class="mt-1 mb-3" style="font-size: 19px !important;">{{user.preferred_currency}}{{loan.amount|floatformat:2|intcomma }}</h1>
+                                <h1 class="mt-1 mb-3" style="font-size: 19px !important;">
+                                    {{user.preferred_currency}}{{loan.amount|floatformat:2|intcomma }}</h1>
                                 {% if loan.activated %}
                                 <span class="badge bg-primary">Active</span>
                                 {% else %}
@@ -443,7 +448,10 @@
                                         {% else %}
                                         ----
                                         {% endif %}</td>
-                                    <td class="no-wrap">{{user.preferred_currency}} {{ transaction.amount|floatformat:2|intcomma }}</td>
+                                    <td class="no-wrap">
+                                        {{user.preferred_currency}}
+                                        {{ transaction.amount|floatformat:2|intcomma }}
+                                    </td>
                                     <td class="no-wrap">
                                         <span
                                             class="badge {% if not transaction.status == 'Pending' %} bg-success {% else %} bg-danger {% endif %}">

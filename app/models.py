@@ -250,6 +250,11 @@ class Account(models.Model):
         ('SAVINGS', 'SAVINGS'),
         ('MONEY MARKET', 'MONEY MARKET'),
         ('PLATINUM', 'PLATINUM'),
+        ('CURRENT', 'CURRENT'),
+    )
+    ACCOUNT_CATEGORY = (
+        ('Individual', 'Individual'),
+        ('Business', 'Business'),
     )
 
 
@@ -285,6 +290,7 @@ class Account(models.Model):
     customer = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     account_number = models.CharField(max_length=100, unique=True, default=generate_account_number)
     account_type = models.CharField(max_length=40, choices=ACCOUNT_TYPES)
+    account_category = models.CharField(max_length=100, choices=ACCOUNT_CATEGORY, default="Individual")
     balance = models.DecimalField(max_digits=12, decimal_places=2, default=0.00)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

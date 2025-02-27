@@ -72,6 +72,7 @@ ACCOUNT_TYPES = (
     'SAVINGS',
     'PLATINUM', 
     'MONEY MARKET',
+    'CURRENT',
 )
 
 PREFERRED_ID_TYPE = [
@@ -810,6 +811,7 @@ def create_bank_account(request):
         ('SAVINGS', 'SAVINGS'),
         ('MONEY MARKET', 'MONEY MARKET'),
         ('PLATINUM', 'PLATINUM'),
+        ('CURRENT', 'CURRENT'),
     ]
 
     EMPLOYMENT_STATUS = [
